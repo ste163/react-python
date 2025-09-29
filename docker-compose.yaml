@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:18.0-alpine
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: react-python-app
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: example
+
+volumes:
+  pgdata:
