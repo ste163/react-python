@@ -1,8 +1,10 @@
 # react-python
+A simple task manager app for exploring a python-based API
 
 ## Stack
 - Postgres running in Docker
 - Backend API: Python, SQLModel (ORM), FastAPI
+- Frontend: react
 
 ## Running
 ### Database
@@ -36,3 +38,20 @@ fastapi dev main.py
 ```
 
 Swagger available at: [127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+### Migrations
+After the env is setup and dependencies installed, run the migrations:
+```sh
+alembic upgrade head
+```
+
+For development, if changes to a models have occurred:
+```sh
+# generate the migration
+alembic revision --autogenerate -m "What you changed"
+```
+
+Then to apply the migration
+```sh
+alembic upgrade head
+```
