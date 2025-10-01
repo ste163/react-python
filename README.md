@@ -3,7 +3,7 @@ A simple task manager app for exploring a python-based API
 
 ## Stack
 - Postgres running in Docker
-- Backend API: Python, SQLModel (ORM), FastAPI
+- Backend API: Python, SQLModel (ORM), FastAPI, Alembic (migrations) 
 - Frontend: react
 
 ## Running
