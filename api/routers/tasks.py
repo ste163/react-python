@@ -1,6 +1,6 @@
 from typing import List
 from fastapi import APIRouter, Depends 
-from sqlmodel import Session, select
+from sqlmodel import Session 
 from models.task import Task, TaskCreate
 from database import get_session
 from services.tasks import TaskService
