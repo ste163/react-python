@@ -16,10 +16,7 @@ def get_task_service(db: Annotated[Session, Depends(get_session)]) -> TaskServic
 
 @router.get("/", response_model=list[Task])
 def get_all_tasks(service: Annotated[TaskService, Depends(get_task_service)]):
-    """Get all tasks"""   
-
-
-
+    """Get all tasks"""
 
     return service.get_all_tasks()
 
