@@ -1,0 +1,1 @@
+npm run api:lint:check && npm run api:test

@@ -5,10 +5,17 @@
     "api:test": "cd api && source venv/bin/activate && pytest",
     "api:lint:check": "cd api && source venv/bin/activate && ruff check .",
     "api:lint:fix": "cd api && source venv/bin/activate && ruff check . --fix",
-    "api:lint:format:": "cd api && source venv/bin/activate && ruff format ."
+    "api:lint:format:": "cd api && source venv/bin/activate && ruff format .",
+    "prepare": "husky"
   },
   "devDependencies": {
     "husky": "9.1.7",
     "lint-staged": "16.2.3"
+  },
+  "lint-staged": {
+    "api/**/*.py": [
+      "cd api && source .venv/bin/activate && ruff check --fix",
+      "cd api && source .venv/bin/activate && ruff format"
+    ]
   }
 }
