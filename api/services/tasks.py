@@ -14,7 +14,7 @@ class TaskService:
 
     def create_task(self, task_create: TaskCreate) -> Task:
         """Create a new task"""
-        task = Task.from_orm(task_create)
+        task = Task.model_validate(task_create)
         self.db.add(task)
         self.db.commit()
         self.db.refresh(task)

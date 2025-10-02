@@ -55,3 +55,14 @@ Then to apply the migration
 ```sh
 alembic upgrade head
 ```
+
+## Testing
+
+### API
+Integration testing suite with a separate DB running in docker.
+
+### Running Tests
+
+```sh
+cd api && pytest
+```
