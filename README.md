@@ -66,3 +66,21 @@ Integration testing suite with a separate DB running in docker.
 ```sh
 cd api && pytest
 ```
+
+## Linting
+Uses ruff for linting.
+
+Run
+```sh
+cd api && source .venv/bin/activate && ruff check .
+```
+
+And to auto fix:
+```sh
+cd api && source .venv/bin/activate && ruff check --fix .
+```
+
+And to auto format:
+```sh
+cd api && source .venv/bin/activate && ruff format .
+```

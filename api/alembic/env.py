@@ -1,38 +1,43 @@
+import importlib
 import os
+import pkgutil
 import sys
 from logging.config import fileConfig
-import importlib
-import pkgutil
-from sqlmodel import SQLModel
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-from alembic import context
+
 from dotenv import load_dotenv
+from sqlalchemy import engine_from_config, pool
+from sqlmodel import SQLModel
+
+from alembic import context
+
 
 # Add this to your env.py after the imports section:
 def render_item(type_, obj, autogen_context):
     """Render custom imports for migrations"""
-    if type_ == 'type' and obj.__class__.__module__ == 'sqlmodel.sql.sqltypes':
+    if type_ == "type" and obj.__class__.__module__ == "sqlmodel.sql.sqltypes":
         autogen_context.imports.add("import sqlmodel")
     return False
 
+
 # add parent directory to path to import models
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 # load env vars
-load_dotenv("../.env.local") 
+load_dotenv("../.env.local")
+
 
 # Auto-import all models from the models package
 def import_all_models():
     """Automatically import all model files so Alembic can detect them"""
-    models_path = os.path.join(os.path.dirname(__file__), '..', 'models')
-    
+    models_path = os.path.join(os.path.dirname(__file__), "..", "models")
+
     # Walk through all Python files in the models directory
     for _, modname, ispkg in pkgutil.iter_modules([models_path]):
         if not ispkg:  # Only import .py files, not subdirectories
-            full_module_name = f'models.{modname}'
+            full_module_name = f"models.{modname}"
             print(f"Auto-importing model: {full_module_name}")
             importlib.import_module(full_module_name)
+
 
 # Import all models automatically
 import_all_models()
@@ -101,7 +106,7 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, 
+            connection=connection,
             target_metadata=target_metadata,
             render_item=render_item,
             compare_type=True,

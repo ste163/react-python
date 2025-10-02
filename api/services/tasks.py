@@ -1,12 +1,13 @@
-from typing import List
 from sqlmodel import Session, select
+
 from models.task import Task, TaskCreate
+
 
 class TaskService:
     def __init__(self, db: Session):
         self.db = db
-    
-    def get_all_tasks(self) -> List[Task]:
+
+    def get_all_tasks(self) -> list[Task]:
         """Get all tasks"""
         statement = select(Task)
         tasks = self.db.exec(statement).all()
