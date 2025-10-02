@@ -1,5 +1,8 @@
 # react-python
-A simple task manager app for exploring a python-based API
+A simple task manager app for exploring a python-based API.
+
+- Includes python formatting and linting using ruff that's automatic through husky and lint-staged.
+- Includes backend integration tests running on pre-push
 
 ## Stack
 - Postgres running in Docker
