@@ -6,7 +6,6 @@ the complete request/response cycle including database operations.
 
 Tests are organized by endpoint with negative scenarios first.
 """
-import pytest
 from fastapi.testclient import TestClient
 from sqlmodel import Session, select
 

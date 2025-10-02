@@ -4,7 +4,6 @@ Test configuration and fixtures for integration tests.
 This module provides pytest fixtures for testing the FastAPI application
 with a real PostgreSQL database running in Docker.
 """
-import os
 import pytest
 from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine
@@ -12,7 +11,6 @@ from sqlalchemy.pool import StaticPool
 
 from main import app
 from database import get_session
-from models.task import Task
 
 
 # Test database configuration
