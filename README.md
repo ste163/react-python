@@ -17,13 +17,13 @@ docker compose up
 Setup virtual env
 ```sh
 cd ./api &&
-python -m venv .venv
+python -m venv venv
 ```
 
 Activate env
 ```sh
 cd ./api &&
-source .venv/bin/activate
+source venv/bin/activate
 ```
 
 Install packages
@@ -64,23 +64,5 @@ Integration testing suite with a separate DB running in docker.
 ### Running Tests
 
 ```sh
-cd api && pytest
-```
-
-## Linting
-Uses ruff for linting.
-
-Run
-```sh
-cd api && source .venv/bin/activate && ruff check .
-```
-
-And to auto fix:
-```sh
-cd api && source .venv/bin/activate && ruff check --fix .
-```
-
-And to auto format:
-```sh
-cd api && source .venv/bin/activate && ruff format .
+npm run api:test
 ```
