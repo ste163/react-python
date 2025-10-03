@@ -23,7 +23,8 @@
     ],
     "client/src/**/*.{js,jsx,ts,tsx}": [
       "bash -c 'cd client && npm run lint:fix -- \"$@\"' --",
-      "bash -c 'cd client && npm run typecheck' --"
+      "bash -c 'cd client && npm run typecheck' --",
+      "bash -c 'cd client && npm run format -- \"$@\"' --"
     ]
   }
 }
