@@ -7,8 +7,13 @@ import css from "@eslint/css";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: globals.browser } },
-  ...tseslint.configs.recommended.map(config => ({
+  {
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    plugins: { js },
+    extends: ["js/recommended"],
+    languageOptions: { globals: globals.browser },
+  },
+  ...tseslint.configs.recommended.map((config) => ({
     ...config,
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
   })),
@@ -24,12 +29,17 @@ export default defineConfig([
       "react/react-in-jsx-scope": "off",
     },
   },
-  { 
-    files: ["**/*.json"], 
+  {
+    files: ["**/*.json"],
     ignores: ["**/package-lock.json", "**/tsconfig*.json"],
-    plugins: { json }, 
-    language: "json/json", 
-    extends: ["json/recommended"] 
+    plugins: { json },
+    language: "json/json",
+    extends: ["json/recommended"],
   },
-  { files: ["**/*.css"], plugins: { css }, language: "css/css", extends: ["css/recommended"] },
+  {
+    files: ["**/*.css"],
+    plugins: { css },
+    language: "css/css",
+    extends: ["css/recommended"],
+  },
 ]);
