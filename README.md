@@ -1,21 +1,39 @@
 # react-python
-A simple task manager app for exploring a python-based API.
+A simple task manager app for exploring a python-based API with automatic TypeScript type generation.
 
-- Includes python formatting and linting using ruff that's automatic through husky and lint-staged.
-- Includes backend integration tests running on pre-push
+## Features
+- Python formatting and linting using ruff (automatic through husky and lint-staged)
+- Backend integration tests running on pre-push
+- Automatic TypeScript type generation from FastAPI OpenAPI spec
+- Hot-reloading: API changes automatically update client TypeScript types
 
 ## Stack
-- Postgres running in Docker
+- Database: Postgres (Docker)
 - Backend API: Python, SQLModel (ORM), FastAPI, Alembic (migrations) 
-- Frontend: react
+- Frontend: React, TypeScript, Vite
+- Type Generation: openapi-typescript
 
-## Running
-### Database
+## Quick Start
+
+### Development (Both API and Client)
+#### Database
 Spin up Postgres docker container
 ```sh
 docker compose up
 ```
 
+Run both servers concurrently with automatic type generation:
+```sh
+npm run dev
+```
+
+This will:
+1. Start the FastAPI server (http://127.0.0.1:8000)
+2. Start the Vite dev server (http://localhost:5173)
+3. Automatically export OpenAPI schema when the API changes
+4. Automatically regenerate TypeScript types when the schema changes
+
+### Running Separately
 ### API
 Setup virtual env
 ```sh
@@ -42,7 +60,7 @@ fastapi dev main.py
 
 Swagger available at: [127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-### Migrations
+## Migrations
 After the env is setup and dependencies installed, run the migrations:
 ```sh
 alembic upgrade head

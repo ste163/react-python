@@ -2,3 +2,6 @@
 **/.pytest_cache/
 **node_modules/
 **.ruff_cache/
+
+# Generated API types
+client/src/types/api.d.ts

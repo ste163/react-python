@@ -1,11 +1,14 @@
 {
   "name": "react-python",
   "scripts": {
+    "dev": "concurrently \"npm:api:dev\" \"npm:client:dev\" --names \"api,client\" --prefix-colors \"blue,green\"",
     "api:dev": "cd api && source venv/bin/activate && fastapi dev main.py",
+    "api:export-schema": "cd api && source venv/bin/activate && python scripts/export_openapi.py",
     "api:test": "cd api && source venv/bin/activate && pytest",
     "api:lint:check": "cd api && source venv/bin/activate && ruff check .",
     "api:lint:fix": "cd api && source venv/bin/activate && ruff check . --fix",
     "api:lint:format:": "cd api && source venv/bin/activate && ruff format .",
+    "client:dev": "cd client && npm run dev",
     "client:lint:check": "cd client && npm run lint",
     "client:lint:fix": "cd client && npm run lint:fix",
     "client:typecheck": "cd client && npm run typecheck",
@@ -13,6 +16,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "concurrently": "9.2.1",
     "husky": "9.1.7",
     "lint-staged": "16.2.3"
   },
