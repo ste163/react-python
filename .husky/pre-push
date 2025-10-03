@@ -1,1 +1,1 @@
-npm run api:lint:check && npm run api:test
+npm run api:lint:check && npm run api:test && npm run client:lint:check

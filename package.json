@@ -6,6 +6,8 @@
     "api:lint:check": "cd api && source venv/bin/activate && ruff check .",
     "api:lint:fix": "cd api && source venv/bin/activate && ruff check . --fix",
     "api:lint:format:": "cd api && source venv/bin/activate && ruff format .",
+    "client:lint:check": "cd client && npm run lint",
+    "client:lint:fix": "cd client && npm run lint:fix",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -16,6 +18,9 @@
     "api/**/*.py": [
       "bash -c 'cd api && source venv/bin/activate && ruff check --fix \"$@\"' --",
       "bash -c 'cd api && source venv/bin/activate && ruff format \"$@\"' --"
+    ],
+    "client/src/**/*.{js,jsx,ts,tsx}": [
+      "bash -c 'cd client && npm run lint:fix -- \"$@\"' --"
     ]
   }
 }
