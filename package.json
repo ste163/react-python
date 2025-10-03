@@ -9,6 +9,7 @@
     "client:lint:check": "cd client && npm run lint",
     "client:lint:fix": "cd client && npm run lint:fix",
     "client:typecheck": "cd client && npm run typecheck",
+    "client:format:check": "cd client && npm run format:check",
     "prepare": "husky"
   },
   "devDependencies": {
