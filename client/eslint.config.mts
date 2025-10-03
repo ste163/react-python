@@ -31,7 +31,7 @@ export default defineConfig([
   },
   {
     files: ["**/*.json"],
-    ignores: ["**/package-lock.json", "**/tsconfig*.json"],
+    ignores: ["**/package-lock.json", "**/tsconfig*.json", "**/src/types/openapi.json"],
     plugins: { json },
     language: "json/json",
     extends: ["json/recommended"],
