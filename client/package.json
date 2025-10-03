@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "npx --node-options='--experimental-strip-types' eslint --flag unstable_native_nodejs_ts_config .",
-    "lint:fix": "npx --node-options='--experimental-strip-types' eslint --flag unstable_native_nodejs_ts_config --fix"
+    "lint:fix": "npx --node-options='--experimental-strip-types' eslint --flag unstable_native_nodejs_ts_config --fix",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@eslint/css": "0.11.1",
