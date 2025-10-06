@@ -26,7 +26,6 @@ async def lifespan(app: FastAPI):
         print(f"Error exporting schema: {e}")
 
     yield
-    # Shutdown: cleanup if needed
     print("Shutting down...")
 
 
