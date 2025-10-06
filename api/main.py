@@ -1,8 +1,11 @@
 import json
+import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
+from dotenv import load_dotenv
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from routers.tasks import router as tasks_router
 
@@ -28,5 +31,18 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Task Manager API", version="1.0.0", lifespan=lifespan)
+
+env_file = f".env.{os.getenv('ENVIRONMENT', 'local')}"
+load_dotenv(env_file)
+
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[origin.strip() for origin in allowed_origins],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(tasks_router)
