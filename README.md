@@ -14,27 +14,27 @@ A simple task manager app for exploring a python-based API with automatic TypeSc
 - Type Generation: openapi-typescript
 
 ## Quick Start
+Note: once the app has been fully setup, the root `package.json` contains commands for running the client and api
 
-### Development (Both API and Client)
+### One-time setup
+#### Node package installs
+From root
+```sh
+npm i
+```
+
+From `/client`
+```sh
+npm i
+```
+
 #### Database
-Spin up Postgres docker container
+Spin up Postgres docker containers
 ```sh
 docker compose up
 ```
 
-Run both servers concurrently with automatic type generation:
-```sh
-npm run dev
-```
-
-This will:
-1. Start the FastAPI server (http://127.0.0.1:8000)
-2. Start the Vite dev server (http://localhost:5173)
-3. Automatically export OpenAPI schema when the API changes
-4. Automatically regenerate TypeScript types when the schema changes
-
-### Running Separately
-### API
+##### API package install
 Setup virtual env
 ```sh
 cd ./api &&
@@ -53,20 +53,30 @@ cd ./api &&
 pip install -r requirements.txt
 ```
 
-Run API with 
+##### Run migrations
 ```sh
-fastapi dev main.py
+cd ./api &&
+alembic upgrade head
 ```
+
+### Development (Both API and Client)
+
+Run both servers concurrently with automatic type generation:
+```sh
+npm run dev
+```
+
+This will:
+1. Start the FastAPI server (http://127.0.0.1:8000)
+2. Start the Vite dev server (http://localhost:5173)
+3. Automatically export OpenAPI schema when the API changes
+4. Automatically regenerate TypeScript types when the schema changes
+
 
 Swagger available at: [127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
 ## Migrations
-After the env is setup and dependencies installed, run the migrations:
-```sh
-alembic upgrade head
-```
-
-For development, if changes to a models have occurred:
+To create new migrations, after models have been added or removed:
 ```sh
 # generate the migration
 alembic revision --autogenerate -m "What you changed"

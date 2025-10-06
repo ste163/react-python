@@ -1,7 +1,12 @@
-**/__pycache__/
-**/.pytest_cache/
-**node_modules/
-**.ruff_cache/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
 
 # Generated API types
 client/src/types/api.d.ts
