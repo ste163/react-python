@@ -33,7 +33,10 @@ export default defineConfig([
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
     plugins: { 'react-hooks': reactHooks },
-    extends: ["plugin:react-hooks/recommended"],
+    rules: {
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+    },
   },
   {
     files: ["**/*.json"],
