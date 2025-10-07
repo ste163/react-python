@@ -44,5 +44,8 @@ function generateApiTypes(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), generateApiTypes()],
+  plugins: [
+    react({ babel: { plugins: ["babel-plugin-react-compiler"] } }),
+    generateApiTypes(),
+  ],
 });
