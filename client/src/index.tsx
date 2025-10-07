@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
-import App from "./App";
 import { StrictMode } from "react";
+import { BrowserRouter } from "react-router";
+import App from "./App";
 
 document.body.innerHTML = "<div id='app'></div>";
 
@@ -11,6 +12,8 @@ if (!appElement) throw new Error("No app element found");
 const root = createRoot(appElement);
 root.render(
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>,
 );

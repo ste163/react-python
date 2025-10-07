@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import type { components } from "./types/api";
-
-type Task = components["schemas"]["Task"];
+import type { Task } from "./types";
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
