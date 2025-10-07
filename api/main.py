@@ -9,10 +9,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from config.logging_config import setup_logging
+from middleware.logging_middleware import log_request
 from routers.tasks import router as tasks_router
 
 setup_logging()
 
+logging.getLogger("uvicorn").propagate = False  # Turn off unvicorn logging
 logging = logging.getLogger(__name__)
 
 
@@ -41,6 +43,9 @@ load_dotenv(env_file)
 
 allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
 
+# logging middleware first to catch any and all errors
+app.middleware("http")(log_request)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[origin.strip() for origin in allowed_origins],
@@ -48,5 +53,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 app.include_router(tasks_router)
