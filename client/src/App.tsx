@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
-import type { Task } from "./types";
+import { httpClient } from "./httpClient";
+import type { GetTaskResponse, Task } from "./types";
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // use `use` and <Suspsense> instead of this approach
+  // and an error boundary
   useEffect(() => {
-    // todo add env for api url
     const fetchTasks = async () => {
       try {
-        const res = await fetch("http://localhost:8000/tasks/");
-        const data: Task[] = await res.json();
+        const data = await httpClient.get<GetTaskResponse>("/tasks/");
         setTasks(data);
-        setLoading(false);
       } catch (err) {
         setError((err as Error).message);
+      } finally {
         setLoading(false);
       }
     };
