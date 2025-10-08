@@ -52,7 +52,7 @@ export default defineConfig({
     alias: {
       components: "/src/components",
       types: "/src/types",
-      httpClient: "/src/httpClient"
-    }
-  }
+      httpClient: "/src/httpClient",
+    },
+  },
 });
