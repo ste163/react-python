@@ -1,50 +1,52 @@
 import { useEffect, useState } from "react";
-import { httpClient } from "./httpClient";
-import type { GetTaskResponse, Task } from "./types";
+import { ErrorBoundary } from "components/ErrorBoundary";
+import { httpClient } from "httpClient";
+import type { GetTaskResponse, Task } from "types";
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // use `use` and <Suspsense> instead of this approach
-  // and an error boundary
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const data = await httpClient.get<GetTaskResponse>("/tasks/");
-        setTasks(data);
+        const response = await httpClient.get<GetTaskResponse>("/tasks/");
+        setTasks(response);
       } catch (err) {
-        setError((err as Error).message);
+        setError("Failed to fetch tasks");
+        console.error(err);
       } finally {
         setLoading(false);
       }
     };
-
     fetchTasks();
   }, []);
 
   if (loading) return <div>Loading tasks...</div>;
-  if (error) return <div>Error: {error}</div>;
+
+  if (error) return <div>{error}</div>;
 
   return (
     <div>
       <h1>Task Manager</h1>
-      <div>
-        {tasks.length === 0 ? (
-          <p>No tasks found</p>
-        ) : (
-          <ul>
-            {tasks.map((task) => (
-              <li key={task.id}>
-                <strong>{task.title}</strong>
-                {task.description && <p>{task.description}</p>}
-                <p>Completed: {task.completed ? "Yes" : "No"}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <ErrorBoundary fallback={<div>An unexpected error occurred.</div>}>
+        <div>
+          {tasks.length === 0 ? (
+            <p>No tasks found</p>
+          ) : (
+            <ul>
+              {tasks.map((task) => (
+                <li key={task.id}>
+                  <strong>{task.title}</strong>
+                  {task.description && <p>{task.description}</p>}
+                  <p>Completed: {task.completed ? "Yes" : "No"}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </ErrorBoundary>
     </div>
   );
 }

@@ -48,4 +48,11 @@ export default defineConfig({
     react({ babel: { plugins: ["babel-plugin-react-compiler"] } }),
     generateApiTypes(),
   ],
+  resolve: {
+    alias: {
+      components: "/src/components",
+      types: "/src/types",
+      httpClient: "/src/httpClient"
+    }
+  }
 });
