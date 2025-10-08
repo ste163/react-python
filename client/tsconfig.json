@@ -17,6 +17,7 @@
     "baseUrl": "src",
     "paths": {
       "components/*": ["components/*"],
+      "pages/*": ["pages/*"],
       "types/*": ["types/*"],
       "httpClient": ["httpClient"]
     },
