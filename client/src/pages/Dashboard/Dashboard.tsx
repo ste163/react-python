@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { httpClient } from "httpClient";
+import { TaskForm, TaskList } from "./components";
 import type { GetTaskResponse, Task } from "types";
 
 export function Dashboard() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const [submittingTask, setSubmittingTask] = useState<boolean>(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -13,7 +16,7 @@ export function Dashboard() {
         const response = await httpClient.get<GetTaskResponse>("/tasks/");
         setTasks(response);
       } catch (err) {
-        setError("Failed to fetch tasks");
+        setFetchError("Failed to fetch tasks");
         console.error(err);
       } finally {
         setLoading(false);
@@ -22,28 +25,33 @@ export function Dashboard() {
     fetchTasks();
   }, []);
 
+  const onSubmit = (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      setSubmittingTask(true);
+
+      console.log("SUBMITTING", e);
+    } catch (error) {
+      console.error(error);
+      setSubmitError("Failed to submit task");
+    } finally {
+      setSubmittingTask(false);
+    }
+  };
+
   if (loading) return <div>Loading tasks...</div>;
 
-  if (error) return <div>{error}</div>;
+  if (fetchError) return <div>{fetchError}</div>;
 
   return (
     <div>
       <h1>Task Manager</h1>
-      <div>
-        {tasks.length === 0 ? (
-          <p>No tasks found</p>
-        ) : (
-          <ul>
-            {tasks.map((task) => (
-              <li key={task.id}>
-                <strong>{task.title}</strong>
-                {task.description && <p>{task.description}</p>}
-                <p>Completed: {task.completed ? "Yes" : "No"}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <TaskForm
+        error={submitError}
+        disabled={submittingTask}
+        onSubmit={onSubmit}
+      />
+      <TaskList tasks={tasks} />
     </div>
   );
 }

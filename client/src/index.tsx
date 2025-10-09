@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import { BrowserRouter } from "react-router";
-import App from "./App";
 import { ErrorBoundary } from "components/ErrorBoundary";
+import App from "./App";
 
 document.body.innerHTML = "<div id='app'></div>";
 
