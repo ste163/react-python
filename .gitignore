@@ -10,3 +10,10 @@ node_modules/
 
 # Generated API types
 client/src/types/api.d.ts
+
+# Playwright
+*/test-results/
+*/playwright-report/
+*/blob-report/
+*/playwright/.cache/
+*/playwright/.auth/
