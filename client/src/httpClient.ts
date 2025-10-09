@@ -9,9 +9,22 @@ class HttpClient {
       method: "GET",
       ...options,
     });
-    if (!response.ok) {
-      throw new Error(`HTTP error. Status: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP error. Status: ${response.status}`);
+
+    return await response.json();
+  }
+
+  async post<T>(path: string, options?: RequestInit): Promise<T> {
+    const url = `${this.baseUrl}${path}`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      ...options,
+    });
+    if (!response.ok) throw new Error(`HTTP error. Status: ${response.status}`);
+
     return await response.json();
   }
 }

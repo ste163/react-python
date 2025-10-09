@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { httpClient } from "httpClient";
 import { TaskForm, TaskList } from "./components";
-import type { GetTaskResponse, Task } from "types";
+import {
+  type PostTaskRequestBody,
+  type GetTaskResponse,
+  type Task,
+  type PostTaskResponse,
+} from "types";
 
 export function Dashboard() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -25,12 +30,14 @@ export function Dashboard() {
     fetchTasks();
   }, []);
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (values: PostTaskRequestBody) => {
     try {
-      e.preventDefault();
+      setSubmitError(null);
       setSubmittingTask(true);
-
-      console.log("SUBMITTING", e);
+      const response = await httpClient.post<PostTaskResponse>("/tasks/", {
+        body: JSON.stringify(values),
+      });
+      setTasks((prevTasks) => [...prevTasks, response]);
     } catch (error) {
       console.error(error);
       setSubmitError("Failed to submit task");
