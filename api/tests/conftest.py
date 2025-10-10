@@ -15,8 +15,6 @@ from config.env import settings
 from database import get_session
 from main import app
 
-TEST_DATABASE_URL = settings.test_database_url
-
 
 @pytest.fixture(name="engine")
 def engine_fixture():
@@ -26,7 +24,7 @@ def engine_fixture():
     This connects to the postgres-test Docker container on port 5433.
     """
     engine = create_engine(
-        TEST_DATABASE_URL,
+        settings.database_url,
         echo=False,  # Set to True to see SQL queries during tests
         poolclass=StaticPool,  # Use static pool for testing
     )

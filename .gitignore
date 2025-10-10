@@ -17,3 +17,5 @@ client/src/types/api.d.ts
 */blob-report/
 */playwright/.cache/
 */playwright/.auth/
+
+.env.local
