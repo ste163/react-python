@@ -1,16 +1,9 @@
-import os
-
-from dotenv import load_dotenv
 from sqlmodel import Session, create_engine
 
-load_dotenv("../.env.local")
+from config.env import settings
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL environment variable is not set")
-
-engine = create_engine(DATABASE_URL, echo=False)  # echo=True shows SQL queries in logs
+# echo=True shows SQL queries in logs
+engine = create_engine(settings.database_url, echo=False)
 
 
 def get_session():

@@ -1,13 +1,12 @@
 import json
 import logging
-import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from config.env import settings
 from config.logging_config import setup_logging
 from middleware.logging_middleware import log_request
 from routers.tasks import router as tasks_router
@@ -38,10 +37,10 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Task Manager API", version="1.0.0", lifespan=lifespan)
 
-env_file = f".env.{os.getenv('ENVIRONMENT', 'local')}"
-load_dotenv(env_file)
 
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
+allowed_origins = getattr(settings, "allowed_origins", "http://localhost:5173").split(
+    ","
+)
 
 # logging middleware first to catch any and all errors
 app.middleware("http")(log_request)

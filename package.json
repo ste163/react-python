@@ -2,7 +2,7 @@
   "name": "react-python",
   "scripts": {
     "dev": "concurrently \"npm:api:dev\" \"npm:client:dev\" --names \"api,client\" --prefix-colors \"blue,green\"",
-    "api:dev": "ENVIRONMENT=local cd api && source venv/bin/activate && fastapi dev main.py",
+    "api:dev": "cd api && cross-env ENVIRONMENT=local venv/bin/python3 -m fastapi dev main.py",
     "api:export-schema": "cd api && source venv/bin/activate && python scripts/export_openapi.py",
     "api:test": "cd api && source venv/bin/activate && pytest",
     "api:lint:check": "cd api && source venv/bin/activate && ruff check .",
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "concurrently": "9.2.1",
+    "cross-env": "10.1.0",
     "husky": "9.1.7",
     "lint-staged": "16.2.3"
   },

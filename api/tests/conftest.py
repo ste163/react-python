@@ -10,11 +10,12 @@ from fastapi.testclient import TestClient
 from sqlalchemy.pool import StaticPool
 from sqlmodel import Session, SQLModel, create_engine
 
+# Test database configuration
+from config.env import settings
 from database import get_session
 from main import app
 
-# Test database configuration
-TEST_DATABASE_URL = "postgresql://admin:example@localhost:5433/task_manager_test"
+TEST_DATABASE_URL = settings.test_database_url
 
 
 @pytest.fixture(name="engine")

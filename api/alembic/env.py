@@ -4,11 +4,11 @@ import pkgutil
 import sys
 from logging.config import fileConfig
 
-from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 from sqlmodel import SQLModel
 
 from alembic import context
+from config.env import settings
 
 
 # Add this to your env.py after the imports section:
@@ -21,9 +21,6 @@ def render_item(type_, obj, autogen_context):
 
 # add parent directory to path to import models
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-# load env vars
-load_dotenv("../.env.local")
 
 
 # Auto-import all models from the models package
@@ -48,7 +45,7 @@ import_all_models()
 config = context.config
 
 # Set the database URL from environment
-config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL"))
+config.set_main_option("sqlalchemy.url", settings.database_url)
 
 
 # Interpret the config file for Python logging.
